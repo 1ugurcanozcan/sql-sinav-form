@@ -1,0 +1,119 @@
+/* Genel gövde ve düzen */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Sayfa içeriği kutusu */
+  .container {
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Başlıklar */
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Giriş alanları ve form elemanları */
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  /* Butonlar */
+  button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Soru alanı */
+  .question-wrapper {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+  }
+  
+  /* Şıklı sorular için stil */
+  label.option-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  label.option-label input[type="radio"] {
+    transform: scale(1.2);
+  }
+  
+  /* Sonuç ekranı stilleri */
+  .correct {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .incorrect {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .tick::after {
+    content: '✓';
+    color: green;
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  
+  .cross::after {
+    content: '✖';
+    color: red;
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  
+  /* Giriş butonları (login ekranı için özel) */
+  .container button {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  
+  
+  
+  
+  
+
