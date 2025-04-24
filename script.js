@@ -34,28 +34,31 @@ function createQuestions() {
   }
   
   function saveExam() {
-    const formData = new FormData(document.getElementById('questionForm'));
+    const form = document.getElementById("questionForm");
+    const wrappers = form.querySelectorAll(".question-wrapper");
     const questions = [];
-    const questionCount = parseInt(document.getElementById('questionCount').value);
   
-    for (let i = 0; i < questionCount; i++) {
-      const q = {
-        text: formData.get(`q${i}_text`),
-        type: formData.get(`q${i}_type`),
-        options: {},
-        answer: formData.get(`q${i}_answer`)
-      };
-      if (q.type === 'multiple') {
+    wrappers.forEach((wrapper, index) => {
+      const text = wrapper.querySelector(`textarea[name='q${index}_text']`).value;
+      const type = wrapper.querySelector(`select[name='q${index}_type']`).value;
+      const answer = wrapper.querySelector(`input[name='q${index}_answer']`).value;
+  
+      const options = {};
+      if (type === 'multiple') {
         ['A', 'B', 'C', 'D', 'E'].forEach(letter => {
-          q.options[letter] = formData.get(`q${i}_opt_${letter}`);
+          const input = wrapper.querySelector(`input[name='q${index}_opt_${letter}']`);
+          options[letter] = input ? input.value : '';
         });
       }
-      questions.push(q);
-    }
   
-    localStorage.setItem('examData', JSON.stringify(questions));
-    alert('Sınav kaydedildi! Şimdi öğrenci sayfasını açabilirsiniz.');
-    window.location.href = 'exam.html';
+      questions.push({ text, type, answer, options });
+    });
+  
+    const duration = document.getElementById("examDuration").value;
+    localStorage.setItem("examData", JSON.stringify(questions));
+    localStorage.setItem("examDuration", duration);
+    alert("Sınav başarıyla kaydedildi. Giriş ekranına dönülüyor...");
+    window.location.href = "login.html";
   }
   
   function loadExamForStudent() {
@@ -82,6 +85,9 @@ function createQuestions() {
       }
       form.appendChild(wrapper);
     });
+  
+    const duration = parseInt(localStorage.getItem('examDuration'));
+    if (!isNaN(duration)) startTimer(duration);
   }
   
   function submitExam() {
@@ -112,9 +118,24 @@ function createQuestions() {
     });
   }
   
+  function startTimer(minutes) {
+    let time = minutes * 60;
+    const timerDisplay = document.getElementById("timer");
+  
+    const countdown = setInterval(() => {
+      const min = Math.floor(time / 60);
+      const sec = time % 60;
+      timerDisplay.textContent = `${min}:${sec < 10 ? '0' + sec : sec}`;
+      time--;
+  
+      if (time < 0) {
+        clearInterval(countdown);
+        alert("Süre doldu. Sınavınız otomatik olarak gönderiliyor.");
+        submitExam();
+      }
+    }, 1000);
+  }
+  
   if (location.pathname.includes('exam.html')) loadExamForStudent();
   if (location.pathname.includes('results.html')) showResults();
-  
-  
-  
   

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giriş Sayfası</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Sınava Giriş</h1>
+    <label for="role">Giriş Tipi:</label>
+    <select id="role">
+      <option value="teacher">Eğitmen</option>
+      <option value="student">Öğrenci</option>
+    </select>
+
+    <input type="password" id="password" placeholder="Şifre girin" />
+    <button onclick="login()">Giriş Yap</button>
+
+    <p id="login-error" style="color:red;"></p>
+  </div>
+
+  <script>
+    function login() {
+      const role = document.getElementById("role").value;
+      const password = document.getElementById("password").value;
+      const error = document.getElementById("login-error");
+
+      const teacherPass = "admin123";
+      const studentPass = "student123";
+
+      if (role === "teacher" && password === teacherPass) {
+        localStorage.setItem("loggedRole", "teacher");
+        window.location.href = "index.html";
+      } else if (role === "student" && password === studentPass) {
+        localStorage.setItem("loggedRole", "student");
+        window.location.href = "exam.html";
+      } else {
+        error.textContent = "Geçersiz şifre ya da rol seçimi.";
+      }
+    }
+
+    // İlk girişte yönlendirme yapma, sadece sayfalar kendi içinde kontrol eder.
+    // Bu kod login ekranının ilk kez gösterilmesini engellemeyecek.
+  </script>
+</body>
+</html>
